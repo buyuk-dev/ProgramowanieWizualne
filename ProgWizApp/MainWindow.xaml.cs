@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ProgWizApp
+namespace Michalski
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,6 +23,7 @@ namespace ProgWizApp
         public MainWindow()
         {
             InitializeComponent();
+            this.Title = ProgWizApp.Properties.Settings.Default.AppTitle;
         }
     }
 }

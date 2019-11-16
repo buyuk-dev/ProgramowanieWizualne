@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProgWizApp.Properties
+namespace Michalski.Properties
 {
 
 
