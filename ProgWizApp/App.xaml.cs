@@ -28,7 +28,8 @@ namespace Michalski
                 var maker = reader.GetString(1);
                 var year = reader.GetInt32(2);
                 var price = reader.GetInt32(3);
-                var v = new Violin(maker, name, (uint)year, (uint)price);
+                var state = reader.GetString(4);
+                var v = new Violin(maker, name, (uint)year, (uint)price, state);
                 Console.WriteLine(v.toString());
             }
             Console.WriteLine("</Violins>");
