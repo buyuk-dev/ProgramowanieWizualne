@@ -7,5 +7,6 @@ namespace Michalski.ProgWiz.Interfaces
 {
     public interface IData
     {
+
     }
 }
