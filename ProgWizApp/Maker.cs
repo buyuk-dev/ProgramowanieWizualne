@@ -15,7 +15,7 @@ namespace Michalski
             this.address = address;
         }
 
-        public string toString()
+        public override string ToString()
         {
             return $"Maker: {name} #{number} @{address}";
         }

@@ -8,5 +8,8 @@
     <Setting Name="AppTitle" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Programowanie Wizualne - Michal Michalski</Value>
     </Setting>
+    <Setting Name="DataSourceUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">file:C:\Users\buyuk\source\repos\ProgramowanieWizualne\data.db</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -6,7 +6,19 @@
         xmlns:local="clr-namespace:Michalski"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="175,93,0,0" VerticalAlignment="Top" Height="179" Width="394"/>
-    </Grid>
+
+    <TabControl>
+        <TabItem Header="Violins">
+            <StackPanel>
+                <Button Click="OnViolinAddBtn">Add</Button>
+                <ListView Name="violinsListView">
+                </ListView>
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Makers">
+            <ListView Name="makersListView">
+
+            </ListView>
+        </TabItem>
+    </TabControl>
 </Window>

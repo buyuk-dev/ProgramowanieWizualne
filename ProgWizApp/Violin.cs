@@ -26,7 +26,7 @@ namespace Michalski
 			this.state = tmpState;
 		}
 
-		public string toString()
+		public override string ToString()
 		{
 			return $"{name} made by {maker} in {year} is in {state.ToString()} condition - ${price}";
 		}
