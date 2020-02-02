@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Data.SQLite;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace Michalski
 {
@@ -30,6 +31,8 @@ namespace Michalski
 
             violinsList = new ObservableCollection<Violin>();
             makersList = new ObservableCollection<Maker>();
+
+            ViolinsDG.DataContext = violinsList;
 
             while (reader.Read())
             {
@@ -111,6 +114,12 @@ namespace Michalski
         private void OnMakerEditBtn(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void OnSearchFocused(object sender, RoutedEventArgs e)
+        {
+            var box = sender as TextBox;
+            box.Text = "";
         }
     }
 }
