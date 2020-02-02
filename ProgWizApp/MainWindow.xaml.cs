@@ -60,13 +60,27 @@ namespace Michalski
         private void OnViolinRemoveBtn(object sender, RoutedEventArgs e)
         {
             var sel = ViolinsDG.SelectedIndex;
-            violinsList.RemoveAt(sel);
+            if (sel < 0 || sel >= violinsList.Count)
+            {
+                MessageBox.Show("Select item to remove.", "Violins", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                violinsList.RemoveAt(sel);
+            }
         }
 
         private void OnMakerRemoveBtn(object sender, RoutedEventArgs e)
         {
             var sel = MakersDG.SelectedIndex;
-            makersList.RemoveAt(sel);
+            if (sel < 0 || sel >= makersList.Count)
+            {
+                MessageBox.Show("Select item to remove.", "Makers", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                makersList.RemoveAt(sel);
+            }
         }
 
         private void OnViolinAddBtn(object sender, RoutedEventArgs e)
