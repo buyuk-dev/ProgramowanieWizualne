@@ -2,6 +2,9 @@
 using System.Windows;
 using System.Data.SQLite;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Michalski
 {
@@ -91,6 +94,34 @@ namespace Michalski
         private void OnMakerAddBtn(object sender, RoutedEventArgs e)
         {
             makersList.Add(new Maker("", "", ""));
+        }
+
+        private void OnViolinFilterChange(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            var filter = (sender as TextBox).Text;
+            if (filter.Length > 0)
+            {
+                IEnumerable<Violin> filteredData = from violin in violinsList where violin.maker.StartsWith(filter) select violin;
+                ViolinsDG.DataContext = filteredData;
+            }
+            else
+            {
+                ViolinsDG.DataContext = violinsList;
+            }
+        }
+
+        private void OnMakerFilterChange(object sender, TextChangedEventArgs e)
+        {
+            var filter = (sender as TextBox).Text;
+            if (filter.Length > 0)
+            {
+                IEnumerable<Maker> filteredData = from maker in makersList where maker.name.StartsWith(filter) select maker;
+                MakersDG.DataContext = filteredData;
+            }
+            else
+            {
+                MakersDG.DataContext = makersList;
+            }
         }
     }
 }
