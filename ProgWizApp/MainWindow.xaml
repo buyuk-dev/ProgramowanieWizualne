@@ -9,63 +9,11 @@
 
     <TabControl>
         <TabItem Header="Violins">
-            <StackPanel>
-                <!-- Menu -->
-                <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
-                    <Button Click="OnViolinAddBtn" Width="50">Add</Button>
-                    <Button Click="OnViolinDeleteBtn" Width="50">Delete</Button>
-                    <Button Click="OnViolinEditBtn" Width="50">Edit</Button>
-                    <TextBox Text="Search..." MinWidth="100" GotFocus="OnSearchFocused"></TextBox>
-                </StackPanel>
-                
-                <!-- Table Column Headers, Click to Sort -->
-                <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
-                    <Button Width="100">Name</Button>
-                    <Button Width="100">Maker</Button>
-                    <Button Width="100">Year</Button>
-                    <Button Width="100">State</Button>
-                    <Button Width="100">Price</Button>
-                </StackPanel>
-                
-                <!-- Column Filters -->
-                <StackPanel Orientation="Horizontal">
-                    <TextBox Width="100"></TextBox>
-                    <TextBox Width="100"></TextBox>
-                    <TextBox Width="100"></TextBox>
-                    <TextBox Width="100"></TextBox>
-                    <TextBox Width="100"></TextBox>
-                </StackPanel>
-
-                <!-- Data Table -->
-                <ListView Name="violinsListView" SelectionChanged="OnViolinSelected">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="BorderBrush" Value="LightGray" />
-                            <Setter Property="BorderThickness" Value="0,0,0,1" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </StackPanel>
+            <DataGrid x:Name="ViolinsDG" ItemsSource="{Binding}">
+            </DataGrid>
         </TabItem>
         <TabItem Header="Makers">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Button Click="OnMakerAddBtn" Width="50">Add</Button>
-                    <Button Click="OnMakerDeleteBtn" Width="50">Delete</Button>
-                    <Button Click="OnMakerEditBtn" Width="50">Edit</Button>
-                </StackPanel>
-                <ListView Name="makersListView">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
-                            <Setter Property="BorderBrush" Value="LightGray" />
-                            <Setter Property="BorderThickness" Value="0,0,0,1" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </StackPanel>
-        </TabItem>
-        <TabItem Header="_ViolinsDG">
-            <DataGrid x:Name="ViolinsDG" ItemsSource="{Binding}">
+            <DataGrid x:Name="MakersDG" ItemsSource="{Binding}">
             </DataGrid>
         </TabItem>
     </TabControl>

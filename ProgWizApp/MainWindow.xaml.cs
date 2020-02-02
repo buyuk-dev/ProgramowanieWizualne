@@ -33,6 +33,7 @@ namespace Michalski
             makersList = new ObservableCollection<Maker>();
 
             ViolinsDG.DataContext = violinsList;
+            MakersDG.DataContext = makersList;
 
             while (reader.Read())
             {
@@ -58,68 +59,6 @@ namespace Michalski
             cmd.Dispose();
             reader.Dispose();
             connection.Dispose();
-
-            Console.WriteLine("<Violins>");
-            foreach (var v in violinsList)
-            {
-                Console.WriteLine($"\t{v.ToString()}");
-            }
-            Console.WriteLine("</Violins>");
-
-            Console.WriteLine("<Makers>");
-            foreach (var m in makersList)
-            {
-                Console.WriteLine($"\t{m.ToString()}");
-            }
-            Console.WriteLine("</Makers>");
-
-            violinsListView.ItemsSource = violinsList;
-            makersListView.ItemsSource = makersList;
-        }
-
-        private void OnViolinAddBtn(object sender, RoutedEventArgs e)
-        {
-            addViolinDialog = new AddViolinDialog();
-            addViolinDialog.Visibility = Visibility.Visible;
-            //violinsList.Add(new Violin("Maker", "Name", 0, 1000, "Good"));
-        }
-
-        private void OnViolinSelected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            var selected = violinsListView.SelectedItems[0] as Violin;
-            Console.WriteLine($"Selected instrument: {selected.name}");
-        }
-
-        private void OnViolinDeleteBtn(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void OnViolinEditBtn(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void OnMakerAddBtn(object sender, RoutedEventArgs e)
-        {
-            addMakerDialog = new AddMakerDialog();
-            addMakerDialog.Visibility = Visibility.Visible;
-        }
-
-        private void OnMakerDeleteBtn(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void OnMakerEditBtn(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void OnSearchFocused(object sender, RoutedEventArgs e)
-        {
-            var box = sender as TextBox;
-            box.Text = "";
         }
     }
 }
