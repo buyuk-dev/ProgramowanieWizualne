@@ -60,5 +60,17 @@ namespace Michalski
             reader.Dispose();
             connection.Dispose();
         }
+
+        private void OnViolinRemoveBtn(object sender, RoutedEventArgs e)
+        {
+            var sel = ViolinsDG.SelectedIndex;
+            violinsList.RemoveAt(sel);
+        }
+
+        private void OnMakerRemoveBtn(object sender, RoutedEventArgs e)
+        {
+            var sel = MakersDG.SelectedIndex;
+            makersList.RemoveAt(sel);
+        }
     }
 }

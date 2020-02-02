@@ -9,12 +9,16 @@
 
     <TabControl>
         <TabItem Header="Violins">
-            <DataGrid x:Name="ViolinsDG" ItemsSource="{Binding}">
-            </DataGrid>
+            <StackPanel>
+                <Button Name="ViolinRemove" Click="OnViolinRemoveBtn">Remove</Button>
+                <DataGrid x:Name="ViolinsDG" ItemsSource="{Binding}"/>
+            </StackPanel>
         </TabItem>
         <TabItem Header="Makers">
-            <DataGrid x:Name="MakersDG" ItemsSource="{Binding}">
-            </DataGrid>
+            <StackPanel>
+                <Button Name="MakerRemove" Click="OnMakerRemoveBtn">Remove</Button>
+                <DataGrid x:Name="MakersDG" ItemsSource="{Binding}"/>
+            </StackPanel>
         </TabItem>
     </TabControl>
 </Window>
