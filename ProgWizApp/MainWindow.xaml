@@ -9,16 +9,34 @@
 
     <TabControl>
         <TabItem Header="Violins">
-            <StackPanel>
-                <Button Name="ViolinRemove" Click="OnViolinRemoveBtn">Remove</Button>
-                <DataGrid x:Name="ViolinsDG" ItemsSource="{Binding}"/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Name="ViolinRemove" Click="OnViolinRemoveBtn"  Grid.Column="0" Grid.Row="0">Remove</Button>
+                <Button Name="ViolinAdd" Click="OnViolinAddBtn" Grid.Column="1" Grid.Row="0">Add</Button>
+                <DataGrid x:Name="ViolinsDG" ItemsSource="{Binding}" Grid.ColumnSpan="2" Grid.Row="1"/>
+            </Grid>
         </TabItem>
         <TabItem Header="Makers">
-            <StackPanel>
-                <Button Name="MakerRemove" Click="OnMakerRemoveBtn">Remove</Button>
-                <DataGrid x:Name="MakersDG" ItemsSource="{Binding}"/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Name="MakerRemove" Click="OnMakerRemoveBtn" Grid.Column="0" Grid.Row="0">Remove</Button>
+                <Button Name="MakerAdd" Click="OnMakerAddBtn" Grid.Column="1" Grid.Row="0">Add</Button>
+                <DataGrid x:Name="MakersDG" ItemsSource="{Binding}" Grid.ColumnSpan="2" Grid.Row="1"/>
+            </Grid>
         </TabItem>
     </TabControl>
 </Window>

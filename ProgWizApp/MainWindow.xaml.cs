@@ -2,13 +2,9 @@
 using System.Windows;
 using System.Data.SQLite;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
 
 namespace Michalski
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public static ObservableCollection<Violin> violinsList;
@@ -19,8 +15,8 @@ namespace Michalski
         public MainWindow()
         {
             InitializeComponent();
-            this.Title = Michalski.Properties.Settings.Default.AppTitle;
-            string dburi = $"URI={Michalski.Properties.Settings.Default.DataSourceUri}";
+            this.Title = Properties.Settings.Default.AppTitle;
+            string dburi = $"URI={Properties.Settings.Default.DataSourceUri}";
             Console.WriteLine(dburi);
 
             var connection = new SQLiteConnection(dburi);
@@ -71,6 +67,16 @@ namespace Michalski
         {
             var sel = MakersDG.SelectedIndex;
             makersList.RemoveAt(sel);
+        }
+
+        private void OnViolinAddBtn(object sender, RoutedEventArgs e)
+        {
+            violinsList.Add(new Violin("", "", 0, 0, "Bad"));
+        }
+
+        private void OnMakerAddBtn(object sender, RoutedEventArgs e)
+        {
+            makersList.Add(new Maker("", "", ""));
         }
     }
 }
