@@ -5,20 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Michalski"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="501.333">
 
     <TabControl>
         <TabItem Header="Violins">
             <StackPanel>
-                <Button Click="OnViolinAddBtn">Add</Button>
-                <ListView Name="violinsListView">
+                <StackPanel Orientation="Horizontal">
+                    <Button Click="OnViolinAddBtn" Width="50">Add</Button>
+                    <Button Click="OnViolinDeleteBtn" Width="50">Delete</Button>
+                    <Button Click="OnViolinEditBtn" Width="50">Edit</Button>
+                </StackPanel>
+                <ListView Name="violinsListView" SelectionChanged="OnViolinSelected">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="BorderBrush" Value="LightGray" />
+                            <Setter Property="BorderThickness" Value="0,0,0,1" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
                 </ListView>
             </StackPanel>
         </TabItem>
         <TabItem Header="Makers">
-            <ListView Name="makersListView">
-
-            </ListView>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Click="OnMakerAddBtn" Width="50">Add</Button>
+                    <Button Click="OnMakerDeleteBtn" Width="50">Delete</Button>
+                    <Button Click="OnMakerEditBtn" Width="50">Edit</Button>
+                </StackPanel>
+                <ListView Name="makersListView">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="BorderBrush" Value="LightGray" />
+                            <Setter Property="BorderThickness" Value="0,0,0,1" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </StackPanel>
         </TabItem>
     </TabControl>
 </Window>

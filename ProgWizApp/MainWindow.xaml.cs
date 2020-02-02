@@ -1,17 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Data.SQLite;
 using System.Collections.ObjectModel;
 
@@ -24,12 +12,13 @@ namespace Michalski
     {
         public static ObservableCollection<Violin> violinsList;
         public static ObservableCollection<Maker> makersList;
+        public static AddViolinDialog addViolinDialog;
+        public static AddMakerDialog addMakerDialog;
 
         public MainWindow()
         {
             InitializeComponent();
             this.Title = Michalski.Properties.Settings.Default.AppTitle;
-
             string dburi = $"URI={Michalski.Properties.Settings.Default.DataSourceUri}";
             Console.WriteLine(dburi);
 
@@ -70,14 +59,14 @@ namespace Michalski
             Console.WriteLine("<Violins>");
             foreach (var v in violinsList)
             {
-                Console.WriteLine(violinsList.ToString());
+                Console.WriteLine($"\t{v.ToString()}");
             }
             Console.WriteLine("</Violins>");
 
             Console.WriteLine("<Makers>");
             foreach (var m in makersList)
             {
-                Console.WriteLine(m.ToString());
+                Console.WriteLine($"\t{m.ToString()}");
             }
             Console.WriteLine("</Makers>");
 
@@ -87,7 +76,41 @@ namespace Michalski
 
         private void OnViolinAddBtn(object sender, RoutedEventArgs e)
         {
-            violinsList.Add(new Violin("Maker", "Name", 0, 1000, "Good"));
+            addViolinDialog = new AddViolinDialog();
+            addViolinDialog.Visibility = Visibility.Visible;
+            //violinsList.Add(new Violin("Maker", "Name", 0, 1000, "Good"));
+        }
+
+        private void OnViolinSelected(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            var selected = violinsListView.SelectedItems[0] as Violin;
+            Console.WriteLine($"Selected instrument: {selected.name}");
+        }
+
+        private void OnViolinDeleteBtn(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnViolinEditBtn(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnMakerAddBtn(object sender, RoutedEventArgs e)
+        {
+            addMakerDialog = new AddMakerDialog();
+            addMakerDialog.Visibility = Visibility.Visible;
+        }
+
+        private void OnMakerDeleteBtn(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnMakerEditBtn(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
