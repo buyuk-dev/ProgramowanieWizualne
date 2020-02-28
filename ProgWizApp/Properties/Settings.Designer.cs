@@ -34,7 +34,7 @@ namespace Michalski.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Programowanie Wizualne - Michal Michalski")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Michal Michalski 109679")]
         public string AppTitle {
             get {
                 return ((string)(this["AppTitle"]));

@@ -18,46 +18,8 @@ namespace Michalski
         public MainWindow()
         {
             InitializeComponent();
-            this.Title = Properties.Settings.Default.AppTitle;
-            string dburi = $"URI={Properties.Settings.Default.DataSourceUri}";
-            Console.WriteLine(dburi);
+            Title = Properties.Settings.Default.AppTitle;
 
-            var connection = new SQLiteConnection(dburi);
-            connection.Open();
-
-            var cmd = new SQLiteCommand("select * from violins", connection);
-            var reader = cmd.ExecuteReader();
-
-            violinsList = new ObservableCollection<Violin>();
-            makersList = new ObservableCollection<Maker>();
-
-            ViolinsDG.DataContext = violinsList;
-            MakersDG.DataContext = makersList;
-
-            while (reader.Read())
-            {
-                var name = reader.GetString(0);
-                var maker = reader.GetString(1);
-                var year = reader.GetInt32(2);
-                var price = reader.GetInt32(3);
-                var state = reader.GetString(4);
-                violinsList.Add(new Violin(maker, name, (uint)year, (uint)price, state));
-            }
-            cmd.Dispose();
-            reader.Dispose();
-
-            cmd = new SQLiteCommand("select * from makers", connection);
-            reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                var name = reader.GetString(0);
-                var number = reader.GetString(1);
-                var address = reader.GetString(2);
-                makersList.Add(new Maker(name, number, address));
-            }
-            cmd.Dispose();
-            reader.Dispose();
-            connection.Dispose();
         }
 
         private void OnViolinRemoveBtn(object sender, RoutedEventArgs e)
@@ -83,44 +45,6 @@ namespace Michalski
             else
             {
                 makersList.RemoveAt(sel);
-            }
-        }
-
-        private void OnViolinAddBtn(object sender, RoutedEventArgs e)
-        {
-            violinsList.Add(new Violin("", "", 0, 0, "Bad"));
-        }
-
-        private void OnMakerAddBtn(object sender, RoutedEventArgs e)
-        {
-            makersList.Add(new Maker("", "", ""));
-        }
-
-        private void OnViolinFilterChange(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            var filter = (sender as TextBox).Text;
-            if (filter.Length > 0)
-            {
-                IEnumerable<Violin> filteredData = from violin in violinsList where violin.maker.StartsWith(filter) select violin;
-                ViolinsDG.DataContext = filteredData;
-            }
-            else
-            {
-                ViolinsDG.DataContext = violinsList;
-            }
-        }
-
-        private void OnMakerFilterChange(object sender, TextChangedEventArgs e)
-        {
-            var filter = (sender as TextBox).Text;
-            if (filter.Length > 0)
-            {
-                IEnumerable<Maker> filteredData = from maker in makersList where maker.name.StartsWith(filter) select maker;
-                MakersDG.DataContext = filteredData;
-            }
-            else
-            {
-                MakersDG.DataContext = makersList;
             }
         }
     }

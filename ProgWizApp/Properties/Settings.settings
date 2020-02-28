@@ -1,12 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ProgWizApp.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Michalski.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="DataSourceType" Type="System.String" Scope="Application">
       <Value Profile="(Default)">MOCK</Value>
     </Setting>
     <Setting Name="AppTitle" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Programowanie Wizualne - Michal Michalski</Value>
+      <Value Profile="(Default)">Michal Michalski 109679</Value>
     </Setting>
     <Setting Name="DataSourceUri" Type="System.String" Scope="Application">
       <Value Profile="(Default)">file:C:\Users\buyuk\source\repos\ProgramowanieWizualne\data.db</Value>
