@@ -39,3 +39,11 @@
     cmd.Dispose();
     reader.Dispose();
     connection.Dispose();
+
+
+# WPF Usage:
+
+1. Message Box:
+
+    MessageBox.Show("Select item to remove.", "Violins", MessageBoxButton.OK, MessageBoxImage.Error);
+
