@@ -95,6 +95,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\NewMakerCmd.cs" />
     <Compile Include="Views\AddMakerDialog.xaml.cs">
       <DependentUpon>AddMakerDialog.xaml</DependentUpon>
     </Compile>
@@ -153,7 +154,9 @@
   <ItemGroup>
     <Resource Include="SQLiteCodeExample.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Michalski\Commands\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

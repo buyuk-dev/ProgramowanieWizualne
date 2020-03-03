@@ -41,9 +41,9 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Button Name="MakerRemove" Grid.Column="0" Grid.Row="0">Remove</Button>
-                <Button Name="MakerAdd" Grid.Column="1" Grid.Row="0">Add</Button>
+                <Button Name="MakerAdd" Command="{Binding Path=NewMakerCmd}" Grid.Column="1" Grid.Row="0">Add</Button>
                 <TextBox Name="MakerFilter" Grid.Column="2" Grid.Row="0"></TextBox>
-                <DataGrid x:Name="MakersDG" ItemsSource="{Binding}" Grid.ColumnSpan="3" Grid.Row="1"/>
+                <DataGrid ItemsSource="{Binding}" DataContext="{Binding Makers}" Grid.ColumnSpan="3" Grid.Row="1"/>
             </Grid>
         </TabItem>
     </TabControl>

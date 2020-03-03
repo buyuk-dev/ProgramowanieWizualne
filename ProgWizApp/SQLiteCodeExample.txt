@@ -1,46 +1,5 @@
 ﻿# SQLite usage
 
-    string dburi = $"URI={Properties.Settings.Default.DataSourceUri}";
-    Console.WriteLine(dburi);
-
-    var connection = new SQLiteConnection(dburi);
-    connection.Open();
-
-    var cmd = new SQLiteCommand("select * from violins", connection);
-    var reader = cmd.ExecuteReader();
-
-    violinsList = new ObservableCollection<Violin>();
-    makersList = new ObservableCollection<Maker>();
-
-    ViolinsDG.DataContext = violinsList;
-    MakersDG.DataContext = makersList;
-
-    while (reader.Read())
-    {
-        var name = reader.GetString(0);
-        var maker = reader.GetString(1);
-        var year = reader.GetInt32(2);
-        var price = reader.GetInt32(3);
-        var state = reader.GetString(4);
-        violinsList.Add(new Violin(maker, name, (uint)year, (uint)price, state));
-    }
-    cmd.Dispose();
-    reader.Dispose();
-
-    cmd = new SQLiteCommand("select * from makers", connection);
-    reader = cmd.ExecuteReader();
-    while (reader.Read())
-    {
-        var name = reader.GetString(0);
-        var number = reader.GetString(1);
-        var address = reader.GetString(2);
-        makersList.Add(new Maker(name, number, address));
-    }
-    cmd.Dispose();
-    reader.Dispose();
-    connection.Dispose();
-
-
 # WPF Usage:
 
 1. Message Box:

@@ -8,6 +8,7 @@ namespace Michalski
 {
     public class Maker
     {
+        public Maker() { }
         public Maker(string name, string number, string address)
         {
             this.name = name;

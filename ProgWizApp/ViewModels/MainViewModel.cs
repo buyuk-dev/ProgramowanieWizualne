@@ -16,10 +16,20 @@ namespace Michalski
             set
             {
                 _violins = value;
+                Console.WriteLine("Setting Violins in MainViewModel.");
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Violins"));
             }
         }
 
+        private ObservableCollection<Maker> _makers;
+        public ObservableCollection<Maker> Makers
+        {
+            get { return _makers; }
+            set {
+                _makers = value;  Console.WriteLine("Setting Makers in MainViewModel.");
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Makers"));
+            }
+        }
 
         private ICommand newViolinCmd;
         public ICommand NewViolinCmd
@@ -33,6 +43,20 @@ namespace Michalski
             }
         }
 
+        public ICommand newMakerCmd;
+        public ICommand NewMakerCmd
+        {
+            get
+            {
+                if (newMakerCmd == null) newMakerCmd = new Commands.NewMakerCmd();
+                return newMakerCmd;
+            }
+            set
+            {
+                newMakerCmd = value;
+            }
+        }
+
         public MainViewModel()
         {
             string dburi = $"URI={Properties.Settings.Default.DataSourceUri}";
@@ -43,7 +67,6 @@ namespace Michalski
 
             var cmd = new SQLiteCommand("select * from violins", connection);
             var reader = cmd.ExecuteReader();
-
             _violins = new ObservableCollection<Violin>();
             while (reader.Read())
             {
@@ -52,12 +75,30 @@ namespace Michalski
                 var year = reader.GetInt32(2);
                 var price = reader.GetInt32(3);
                 var state = reader.GetString(4);
-                _violins.Add(new Violin(maker, name, (uint)year, (uint)price, state));
+                Violins.Add(new Violin(maker, name, (uint)year, (uint)price, state));
             }
-
             cmd.Dispose();
             reader.Dispose();
+
+            cmd = new SQLiteCommand("select * from makers", connection);
+            _makers = new ObservableCollection<Maker>();
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var name = reader.GetString(0);
+                var number = reader.GetString(1);
+                var address = reader.GetString(2);
+                Makers.Add(new Maker(name, number, address));
+            }
+            cmd.Dispose();
+            reader.Dispose();
+
             connection.Dispose();
+        }
+
+        ~MainViewModel()
+        {
+            Console.WriteLine("MainViewModel Destructor.");
         }
     }
 }
