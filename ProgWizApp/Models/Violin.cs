@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using System.ComponentModel;
 
 namespace Michalski
 {
@@ -16,6 +17,7 @@ namespace Michalski
 
 	public class Violin
 	{
+		public Violin() { }
 		public Violin(String maker, String name, uint year, uint price, string state)
 		{
 			this.name = name;

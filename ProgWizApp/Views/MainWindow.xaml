@@ -25,7 +25,8 @@
                 <Button Name="ViolinRemove"  Grid.Column="0" Grid.Row="0">Remove</Button>
                 <Button Name="ViolinAdd" Command="{Binding Path=NewViolinCmd}" Grid.Column="1" Grid.Row="0">Add</Button>
                 <TextBox Name="ViolinFilter" Grid.Column="2" Grid.Row="0"></TextBox>
-                <DataGrid x:Name="ViolinsDG" ItemsSource="{Binding}" Grid.ColumnSpan="3" Grid.Row="1"/>
+                <DataGrid ItemsSource="{Binding}" DataContext="{Binding Violins}" Grid.ColumnSpan="3" Grid.Row="1" CanUserAddRows="True">
+                </DataGrid>
             </Grid>
         </TabItem>
         <TabItem Header="Makers">
