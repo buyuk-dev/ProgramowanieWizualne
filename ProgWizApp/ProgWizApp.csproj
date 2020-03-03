@@ -101,6 +101,7 @@
     <Compile Include="AddViolinDialog.xaml.cs">
       <DependentUpon>AddViolinDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MainViewModel.cs" />
     <Page Include="AddMakerDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -113,6 +114,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="NewViolinCmd.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="Violin.cs" />
