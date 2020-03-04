@@ -1,11 +1,11 @@
 ﻿create table Makers(
-	name text not null,
+	name text not null primary key,
 	number text not null,
 	address text not null
 );
 
 create table Violins(
-	name text not null,
+	name text not null primary key,
 	maker text not null,
 	year integer not null,
 	price integer not null,

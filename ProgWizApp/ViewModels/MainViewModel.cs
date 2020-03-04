@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.SQLite;
+using System.Threading;
 using System.Windows.Input;
 
 namespace Michalski
@@ -57,11 +59,10 @@ namespace Michalski
             }
         }
 
+        private string dburi = $"URI={Properties.Settings.Default.DataSourceUri}"; 
+
         public MainViewModel()
         {
-            string dburi = $"URI={Properties.Settings.Default.DataSourceUri}";
-            Console.WriteLine(dburi);
-
             var connection = new SQLiteConnection(dburi);
             connection.Open();
 
@@ -90,15 +91,61 @@ namespace Michalski
                 var address = reader.GetString(2);
                 Makers.Add(new Maker(name, number, address));
             }
+
             cmd.Dispose();
             reader.Dispose();
+            connection.Close();
+            connection.Dispose();
 
+            Violins.CollectionChanged += new NotifyCollectionChangedEventHandler(ViolinsChangedHandler);
+        }
+
+        private void ViolinsChangedHandler(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var connection = new SQLiteConnection(dburi);
+            connection.Open();
+            string cmd = null;
+
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                {
+                    var violin = e.NewItems[0] as Violin;
+                    cmd = $"insert into violins values (" +
+                            $"'{violin.name}', '{violin.maker}', {violin.year}, {violin.price}, '{violin.state}'" +
+                            $")";
+                }
+                break;
+                case NotifyCollectionChangedAction.Remove:
+                {
+                    var violin = e.OldItems[0] as Violin;
+                    cmd = $"delete from violins where name = '{violin.name}'";
+                }
+                break;
+                case NotifyCollectionChangedAction.Replace:
+                {
+                    var oldViolin = e.OldItems[0] as Violin;
+                    var newViolin = e.NewItems[0] as Violin;
+                    cmd = $"update violins" +
+                            $"set " +
+                            $"name = '{newViolin.name}', " +
+                            $"maker = '{newViolin.maker}', " +
+                            $"year = {newViolin.year}, " +
+                            $"price = {newViolin.price}, " +
+                            $"state = {newViolin.state}" +
+                            $"where " +
+                            $"name = '{oldViolin.name}'";
+                }
+                break;
+            }
+
+            new SQLiteCommand(cmd, connection).ExecuteNonQuery();
+            connection.Close();
             connection.Dispose();
         }
 
         ~MainViewModel()
         {
-            Console.WriteLine("MainViewModel Destructor.");
         }
     }
 }
