@@ -15,10 +15,32 @@ namespace Michalski
 		Bad
 	}
 
-	public class Violin : INotifyPropertyChanged
+	public interface IViolinModel : INotifyPropertyChanged
 	{
-		public Violin() { }
-		public Violin(String maker, String name, uint year, uint price, string state)
+		string name { get; set; }
+		string maker { get; set; }
+		uint year { get; set; }
+		uint price { get; set; }
+		ViolinState state { get; set; }
+	}
+
+	public class ViolinDb : IViolinModel
+	{
+		public static ViolinDb read(SQLiteDataReader reader)
+		{
+			var name = reader.GetString(0);
+			var maker = reader.GetString(1);
+			var year = reader.GetInt32(2);
+			var price = reader.GetInt32(3);
+			var state = reader.GetString(4);
+			return new ViolinDb(maker, name, (uint)year, (uint)price, state);
+		}
+
+		public ViolinDb()
+		{
+			Console.WriteLine("Violin()");		
+		}
+		public ViolinDb(String maker, String name, uint year, uint price, string state)
 		{
 			this.name = name;
 			this.maker = maker;
@@ -26,6 +48,7 @@ namespace Michalski
 			this.price = price;
 			Enum.TryParse(state, true, out ViolinState tmpState);
 			this.state = tmpState;
+			Console.WriteLine("Violin(args)");
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -42,7 +65,6 @@ namespace Michalski
 			set
 			{
 				_name = value;
-				Console.WriteLine($"setting violin name to: {value}");
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("name"));
 			}
 		}

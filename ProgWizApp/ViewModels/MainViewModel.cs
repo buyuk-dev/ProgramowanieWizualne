@@ -11,14 +11,13 @@ namespace Michalski
     class MainViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private ObservableCollection<Violin> _violins;
-        public ObservableCollection<Violin> Violins
+        private ObservableCollection<IViolinModel> _violins;
+        public ObservableCollection<IViolinModel> Violins
         {
             get { return _violins; }
             set
             {
                 _violins = value;
-                Console.WriteLine("Setting Violins in MainViewModel.");
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Violins"));
             }
         }
@@ -68,15 +67,10 @@ namespace Michalski
 
             var cmd = new SQLiteCommand("select * from violins", connection);
             var reader = cmd.ExecuteReader();
-            _violins = new ObservableCollection<Violin>();
+            _violins = new ObservableCollection<IViolinModel>();
             while (reader.Read())
             {
-                var name = reader.GetString(0);
-                var maker = reader.GetString(1);
-                var year = reader.GetInt32(2);
-                var price = reader.GetInt32(3);
-                var state = reader.GetString(4);
-                Violins.Add(new Violin(maker, name, (uint)year, (uint)price, state));
+                Violins.Add(ViolinDb.read(reader));
             }
             cmd.Dispose();
             reader.Dispose();
@@ -110,7 +104,7 @@ namespace Michalski
             {
                 case NotifyCollectionChangedAction.Add:
                 {
-                    var violin = e.NewItems[0] as Violin;
+                    var violin = e.NewItems[0] as IViolinModel;
                     cmd = $"insert into violins values (" +
                             $"'{violin.name}', '{violin.maker}', {violin.year}, {violin.price}, '{violin.state}'" +
                             $")";
@@ -118,14 +112,14 @@ namespace Michalski
                 break;
                 case NotifyCollectionChangedAction.Remove:
                 {
-                    var violin = e.OldItems[0] as Violin;
+                    var violin = e.OldItems[0] as IViolinModel;
                     cmd = $"delete from violins where name = '{violin.name}'";
                 }
                 break;
                 case NotifyCollectionChangedAction.Replace:
                 {
-                    var oldViolin = e.OldItems[0] as Violin;
-                    var newViolin = e.NewItems[0] as Violin;
+                    var oldViolin = e.OldItems[0] as IViolinModel;
+                    var newViolin = e.NewItems[0] as IViolinModel;
                     cmd = $"update violins" +
                             $"set " +
                             $"name = '{newViolin.name}', " +
@@ -138,7 +132,7 @@ namespace Michalski
                 }
                 break;
             }
-
+            Console.WriteLine(cmd);
             new SQLiteCommand(cmd, connection).ExecuteNonQuery();
             connection.Close();
             connection.Dispose();
