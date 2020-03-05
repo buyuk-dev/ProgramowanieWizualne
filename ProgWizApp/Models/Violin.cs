@@ -144,6 +144,8 @@ namespace Michalski
 		{
 			var connection = new SQLiteConnection(dburi);
 			connection.Open();
+
+			// todo: is this query correctly replacing existing items and inserting new items?
 			var cmd = $"insert or replace into violins values (" +
 				      $"'{name}', '{maker}', {year}, {price}, '{state}'" +
 					  $")";

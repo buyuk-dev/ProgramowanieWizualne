@@ -8,11 +8,28 @@ using System.Windows.Input;
 
 namespace Michalski
 {
+
+    class ExtBindingList<T> : BindingList<T>
+    {
+        protected override void RemoveItem(int index)
+        {
+            T deletedItem = this.Items[index];
+            if (BeforeChange != null)
+            {
+                BeforeChange(deletedItem);
+            }
+            base.RemoveItem(index);
+        }
+
+        public delegate void ItemChangedDelegate(T item);
+        public event ItemChangedDelegate BeforeChange;
+    }
+
     class MainViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private BindingList<IViolinModel> _violins;
-        public BindingList<IViolinModel> Violins
+        private ExtBindingList<IViolinModel> _violins;
+        public ExtBindingList<IViolinModel> Violins
         {
             get { return _violins; }
             set
@@ -62,7 +79,7 @@ namespace Michalski
 
         public MainViewModel()
         {
-            _violins = new BindingList<IViolinModel>();
+            _violins = new ExtBindingList<IViolinModel>();
             foreach (var v in ViolinDb.ReadAll()) {
                 _violins.Add(v);
             }
@@ -70,6 +87,8 @@ namespace Michalski
             Violins.AllowNew = true;
             Violins.AddingNew += (sender, e) => e.NewObject = new ViolinDb();
             Violins.AllowEdit = true;
+            Violins.AllowRemove = true;
+            Violins.BeforeChange += BeforeViolinsChangedHandler;
 
             /*
             var connection = new SQLiteConnection(dburi);
@@ -96,6 +115,11 @@ namespace Michalski
             */
         }
 
+        private void BeforeViolinsChangedHandler(IViolinModel item)
+        {
+            (item as ViolinDb).Delete();
+        }
+
         private void ViolinsChangedHandler(object sender, ListChangedEventArgs e)
         {
             if (e.ListChangedType == ListChangedType.ItemChanged)
@@ -103,9 +127,6 @@ namespace Michalski
                 // todo: doesn't work when violin name was changed (primary key).
                 (Violins[e.NewIndex] as ViolinDb).Delete();
                 (Violins[e.NewIndex] as ViolinDb).Upsert();
-            }
-            else if (e.ListChangedType == ListChangedType.ItemDeleted) {
-                // todo: How to handle deleting item from DB?
             }
         }
 
