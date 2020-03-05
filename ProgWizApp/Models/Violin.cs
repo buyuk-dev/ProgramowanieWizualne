@@ -17,6 +17,7 @@ namespace Michalski
 
 	public interface IViolinModel : INotifyPropertyChanged
 	{
+		int id { get; }
 		string name { get; set; }
 		string maker { get; set; }
 		uint year { get; set; }
@@ -30,8 +31,9 @@ namespace Michalski
 		{
 		}
 
-		public ViolinDb(string maker, string name, uint year, uint price, string state)
+		public ViolinDb(int id, string maker, string name, uint year, uint price, string state)
 		{
+			this.id = id;
 			this.name = name;
 			this.maker = maker;
 			this.year = year;
@@ -44,8 +46,10 @@ namespace Michalski
 
 		public override string ToString()
 		{
-			return $"{name} made by {maker} in {year} is in {state.ToString()} condition - ${price}";
+			return $"{id}. {name} made by {maker} in {year} is in {state.ToString()} condition - ${price}";
 		}
+
+		public int id { get; }
 
 		private string _name;
 		public string name
@@ -107,67 +111,5 @@ namespace Michalski
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("state"));
 			}
 		}
-
-		public static ViolinDb Read(SQLiteDataReader reader)
-		{
-			var name = reader.GetString(0);
-			var maker = reader.GetString(1);
-			var year = reader.GetInt32(2);
-			var price = reader.GetInt32(3);
-			var state = reader.GetString(4);
-			return new ViolinDb(maker, name, (uint)year, (uint)price, state);
-		}
-
-		public static List<IViolinModel> ReadAll()
-		{
-			var data = new List<IViolinModel>();
-			var connection = new SQLiteConnection(dburi);
-			connection.Open();
-
-			var cmd = new SQLiteCommand("select * from violins", connection);
-			var reader = cmd.ExecuteReader();
-
-			while (reader.Read())
-			{
-				data.Add(Read(reader));
-			}
-
-			cmd.Dispose();
-			reader.Dispose();
-
-			connection.Close();
-			connection.Dispose();
-			return data;
-		}
-
-		public void Upsert()
-		{
-			var connection = new SQLiteConnection(dburi);
-			connection.Open();
-
-			// todo: is this query correctly replacing existing items and inserting new items?
-			var cmd = $"insert or replace into violins values (" +
-				      $"'{name}', '{maker}', {year}, {price}, '{state}'" +
-					  $")";
-			Console.WriteLine($"upsert cmd: {cmd}");
-			var sql = new SQLiteCommand(cmd, connection);
-			sql.ExecuteNonQuery();
-			sql.Dispose();
-			connection.Close();
-			connection.Dispose();
-		}
-
-		public void Delete()
-		{
-			var connection = new SQLiteConnection(dburi);
-			connection.Open();
-			var cmd = $"delete from violins where name = '{name}'";
-			Console.WriteLine($"delete cmd: {cmd}");
-			new SQLiteCommand(cmd, connection).ExecuteNonQuery();
-			connection.Close();
-			connection.Dispose();
-		}
-
-		private static string dburi = $"URI={Properties.Settings.Default.DataSourceUri}";
 	}
 }

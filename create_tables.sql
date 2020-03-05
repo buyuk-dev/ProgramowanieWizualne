@@ -5,11 +5,12 @@
 );
 
 create table Violins(
-	name text not null primary key,
+	name text not null,
 	maker text not null,
 	year integer not null,
 	price integer not null,
-	state string not null
+	state string not null,
+	id integer primary key autoincrement
 );
 
 insert into Violins (name, maker, year, price, state)

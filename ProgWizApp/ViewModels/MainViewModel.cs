@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Data.SQLite;
-
 using System.Windows.Input;
 
 namespace Michalski
@@ -39,6 +36,7 @@ namespace Michalski
             }
         }
 
+        #region MAKERS_REGION
         private ObservableCollection<Maker> _makers;
         public ObservableCollection<Maker> Makers
         {
@@ -48,6 +46,7 @@ namespace Michalski
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Makers"));
             }
         }
+        #endregion
 
         private ICommand newViolinCmd;
         public ICommand NewViolinCmd
@@ -75,12 +74,15 @@ namespace Michalski
             }
         }
 
-        private string dburi = $"URI={Properties.Settings.Default.DataSourceUri}"; 
-
+        private IViolinStorage violinStorage;
         public MainViewModel()
         {
+            string dburi = $"URI={Properties.Settings.Default.DataSourceUri}";
+            violinStorage = new DbViolinStorage(dburi);
+
             _violins = new ExtBindingList<IViolinModel>();
-            foreach (var v in ViolinDb.ReadAll()) {
+            foreach (var v in violinStorage.ReadAll())
+            {
                 _violins.Add(v);
             }
             Violins.ListChanged += new ListChangedEventHandler(ViolinsChangedHandler);
@@ -90,6 +92,7 @@ namespace Michalski
             Violins.AllowRemove = true;
             Violins.BeforeChange += BeforeViolinsChangedHandler;
 
+            #region MAKERS_REGION
             /*
             var connection = new SQLiteConnection(dburi);
             connection.Open();
@@ -113,20 +116,20 @@ namespace Michalski
             connection.Close();
             connection.Dispose();
             */
+            #endregion
         }
 
         private void BeforeViolinsChangedHandler(IViolinModel item)
         {
-            (item as ViolinDb).Delete();
+            violinStorage.Delete(item);
         }
 
         private void ViolinsChangedHandler(object sender, ListChangedEventArgs e)
         {
             if (e.ListChangedType == ListChangedType.ItemChanged)
             {
-                // todo: doesn't work when violin name was changed (primary key).
-                (Violins[e.NewIndex] as ViolinDb).Delete();
-                (Violins[e.NewIndex] as ViolinDb).Upsert();
+                violinStorage.Delete(Violins[e.NewIndex]);
+                violinStorage.Save(Violins[e.NewIndex]);
             }
         }
 
