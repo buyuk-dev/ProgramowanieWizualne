@@ -26,21 +26,11 @@ namespace Michalski
 
 	public class ViolinDb : IViolinModel
 	{
-		public static ViolinDb read(SQLiteDataReader reader)
-		{
-			var name = reader.GetString(0);
-			var maker = reader.GetString(1);
-			var year = reader.GetInt32(2);
-			var price = reader.GetInt32(3);
-			var state = reader.GetString(4);
-			return new ViolinDb(maker, name, (uint)year, (uint)price, state);
-		}
-
 		public ViolinDb()
 		{
-			Console.WriteLine("Violin()");		
 		}
-		public ViolinDb(String maker, String name, uint year, uint price, string state)
+
+		public ViolinDb(string maker, string name, uint year, uint price, string state)
 		{
 			this.name = name;
 			this.maker = maker;
@@ -48,7 +38,6 @@ namespace Michalski
 			this.price = price;
 			Enum.TryParse(state, true, out ViolinState tmpState);
 			this.state = tmpState;
-			Console.WriteLine("Violin(args)");
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -118,5 +107,65 @@ namespace Michalski
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("state"));
 			}
 		}
+
+		public static ViolinDb Read(SQLiteDataReader reader)
+		{
+			var name = reader.GetString(0);
+			var maker = reader.GetString(1);
+			var year = reader.GetInt32(2);
+			var price = reader.GetInt32(3);
+			var state = reader.GetString(4);
+			return new ViolinDb(maker, name, (uint)year, (uint)price, state);
+		}
+
+		public static List<IViolinModel> ReadAll()
+		{
+			var data = new List<IViolinModel>();
+			var connection = new SQLiteConnection(dburi);
+			connection.Open();
+
+			var cmd = new SQLiteCommand("select * from violins", connection);
+			var reader = cmd.ExecuteReader();
+
+			while (reader.Read())
+			{
+				data.Add(Read(reader));
+			}
+
+			cmd.Dispose();
+			reader.Dispose();
+
+			connection.Close();
+			connection.Dispose();
+			return data;
+		}
+
+		public void Upsert()
+		{
+			var connection = new SQLiteConnection(dburi);
+			connection.Open();
+			var cmd = $"insert or replace into violins values (" +
+				      $"'{name}', '{maker}', {year}, {price}, '{state}'" +
+					  $")";
+			Console.WriteLine($"upsert cmd: {cmd}");
+			var sql = new SQLiteCommand(cmd, connection);
+			sql.ExecuteNonQuery();
+			sql.Dispose();
+			connection.Close();
+			connection.Dispose();
+		}
+
+		public void Delete()
+		{
+			var connection = new SQLiteConnection(dburi);
+			connection.Open();
+			var cmd = $"delete from violins where name = '{name}'";
+			Console.WriteLine($"delete cmd: {cmd}");
+			new SQLiteCommand(cmd, connection).ExecuteNonQuery();
+			connection.Close();
+			connection.Dispose();
+		}
+
+		private static string dburi = $"URI={Properties.Settings.Default.DataSourceUri}";
 	}
 }

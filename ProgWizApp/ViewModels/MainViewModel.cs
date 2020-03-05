@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.SQLite;
-using System.Threading;
+
 using System.Windows.Input;
 
 namespace Michalski
@@ -11,8 +11,8 @@ namespace Michalski
     class MainViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private ObservableCollection<IViolinModel> _violins;
-        public ObservableCollection<IViolinModel> Violins
+        private BindingList<IViolinModel> _violins;
+        public BindingList<IViolinModel> Violins
         {
             get { return _violins; }
             set
@@ -62,21 +62,24 @@ namespace Michalski
 
         public MainViewModel()
         {
+            _violins = new BindingList<IViolinModel>();
+            foreach (var v in ViolinDb.ReadAll()) {
+                _violins.Add(v);
+            }
+            Violins.ListChanged += new ListChangedEventHandler(ViolinsChangedHandler);
+            Violins.AllowNew = true;
+            Violins.AddingNew += (sender, e) => e.NewObject = new ViolinDb();
+            Violins.AllowEdit = true;
+
+            /*
             var connection = new SQLiteConnection(dburi);
             connection.Open();
 
-            var cmd = new SQLiteCommand("select * from violins", connection);
+            var cmd = new SQLiteCommand("select * from makers", connection);
             var reader = cmd.ExecuteReader();
-            _violins = new ObservableCollection<IViolinModel>();
-            while (reader.Read())
-            {
-                Violins.Add(ViolinDb.read(reader));
-            }
-            cmd.Dispose();
-            reader.Dispose();
-
-            cmd = new SQLiteCommand("select * from makers", connection);
+            
             _makers = new ObservableCollection<Maker>();
+
             reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -90,52 +93,20 @@ namespace Michalski
             reader.Dispose();
             connection.Close();
             connection.Dispose();
-
-            Violins.CollectionChanged += new NotifyCollectionChangedEventHandler(ViolinsChangedHandler);
+            */
         }
 
-        private void ViolinsChangedHandler(object sender, NotifyCollectionChangedEventArgs e)
+        private void ViolinsChangedHandler(object sender, ListChangedEventArgs e)
         {
-            var connection = new SQLiteConnection(dburi);
-            connection.Open();
-            string cmd = null;
-
-            switch (e.Action)
+            if (e.ListChangedType == ListChangedType.ItemChanged)
             {
-                case NotifyCollectionChangedAction.Add:
-                {
-                    var violin = e.NewItems[0] as IViolinModel;
-                    cmd = $"insert into violins values (" +
-                            $"'{violin.name}', '{violin.maker}', {violin.year}, {violin.price}, '{violin.state}'" +
-                            $")";
-                }
-                break;
-                case NotifyCollectionChangedAction.Remove:
-                {
-                    var violin = e.OldItems[0] as IViolinModel;
-                    cmd = $"delete from violins where name = '{violin.name}'";
-                }
-                break;
-                case NotifyCollectionChangedAction.Replace:
-                {
-                    var oldViolin = e.OldItems[0] as IViolinModel;
-                    var newViolin = e.NewItems[0] as IViolinModel;
-                    cmd = $"update violins" +
-                            $"set " +
-                            $"name = '{newViolin.name}', " +
-                            $"maker = '{newViolin.maker}', " +
-                            $"year = {newViolin.year}, " +
-                            $"price = {newViolin.price}, " +
-                            $"state = {newViolin.state}" +
-                            $"where " +
-                            $"name = '{oldViolin.name}'";
-                }
-                break;
+                // todo: doesn't work when violin name was changed (primary key).
+                (Violins[e.NewIndex] as ViolinDb).Delete();
+                (Violins[e.NewIndex] as ViolinDb).Upsert();
             }
-            Console.WriteLine(cmd);
-            new SQLiteCommand(cmd, connection).ExecuteNonQuery();
-            connection.Close();
-            connection.Dispose();
+            else if (e.ListChangedType == ListChangedType.ItemDeleted) {
+                // todo: How to handle deleting item from DB?
+            }
         }
 
         ~MainViewModel()
