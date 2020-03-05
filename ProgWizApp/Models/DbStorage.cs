@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Michalski
 {
@@ -36,7 +33,9 @@ namespace Michalski
 
 		public void Delete(IViolinModel item)
 		{
-			var cmd = $"delete from violins where name = '{item.name}'";
+			var cmd = $"delete from violins where id = {item.id}";
+			Console.WriteLine(cmd);
+
 			var connection = new SQLiteConnection(dburi);
 			connection.Open();
 
@@ -55,6 +54,7 @@ namespace Michalski
 			connection.Open();
 
 			var cmd = new SQLiteCommand("select * from violins", connection);
+			Console.WriteLine("select * from violins");
 			var reader = cmd.ExecuteReader();
 
 			while (reader.Read())
@@ -72,19 +72,52 @@ namespace Michalski
 
 		public void Save(IViolinModel item)
 		{
+			string cmd;
+			int maxid = GetLastInsertId();
+			if (item.id < 0)
+			{
+				(item as ViolinDb).SetId(maxid + 1);
+				cmd = $"insert into violins values(" +
+					  $"'{item.name}', '{item.maker}', {item.year}, {item.price}, '{item.state}', {item.id}" +
+					  $")";
+			}
+			else
+			{
+				cmd = $"update violins set " +
+					$"name='{item.name}'," +
+					$"maker='{item.maker}'," +
+					$"state='{item.state}'," +
+					$"year={item.year}," +
+					$"price={item.price} " +
+					$"where id = {item.id}";
+			}
+
+			Console.WriteLine(cmd);
 			var connection = new SQLiteConnection(dburi);
 			connection.Open();
-
-			// todo: is this query correctly replacing existing items and inserting new items?
-			var cmd = $"insert or replace into violins values (" +
-					  $"{item.id} '{item.name}', '{item.maker}', {item.year}, {item.price}, '{item.state}'" +
-					  $")";
-
 			var sql = new SQLiteCommand(cmd, connection);
 			sql.ExecuteNonQuery();
 			sql.Dispose();
 			connection.Close();
 			connection.Dispose();
+		}
+
+		public int GetLastInsertId()
+		{
+			var connection = new SQLiteConnection(dburi);
+			connection.Open();
+			var cmd = "select max(id) from violins";
+			Console.WriteLine(cmd);
+			var sql = new SQLiteCommand(cmd, connection);
+			var reader = sql.ExecuteReader();
+			reader.Read();
+			int id = reader.GetInt32(0);
+			reader.Dispose();
+			sql.Dispose();
+			connection.Close();
+			connection.Dispose();
+			Console.WriteLine($"Last insert id: {id}");
+			return id;
 		}
 	}
 }

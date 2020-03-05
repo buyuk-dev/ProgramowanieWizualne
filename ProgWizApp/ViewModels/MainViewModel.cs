@@ -128,7 +128,14 @@ namespace Michalski
         {
             if (e.ListChangedType == ListChangedType.ItemChanged)
             {
-                violinStorage.Delete(Violins[e.NewIndex]);
+                Console.WriteLine("Item changed");
+                if (e.PropertyDescriptor.Name == "id") return; // ignoring, only possible on new item
+                violinStorage.Save(Violins[e.NewIndex]);
+            }
+
+            if (e.ListChangedType == ListChangedType.ItemAdded)
+            {
+                Console.WriteLine("Item added");
                 violinStorage.Save(Violins[e.NewIndex]);
             }
         }

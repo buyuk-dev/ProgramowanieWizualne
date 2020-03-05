@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SQLite;
 using System.ComponentModel;
 
 namespace Michalski
@@ -29,6 +24,7 @@ namespace Michalski
 	{
 		public ViolinDb()
 		{
+			id = -1;
 		}
 
 		public ViolinDb(int id, string maker, string name, uint year, uint price, string state)
@@ -49,7 +45,21 @@ namespace Michalski
 			return $"{id}. {name} made by {maker} in {year} is in {state.ToString()} condition - ${price}";
 		}
 
-		public int id { get; }
+		public void SetId(int id)
+		{
+			if (this.id < 0) this.id = id;
+		}
+
+		private int _id;
+		public int id
+		{
+			get { return _id; }
+			private set
+			{
+				_id = value;
+				//PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("id"));
+			}
+		}
 
 		private string _name;
 		public string name
