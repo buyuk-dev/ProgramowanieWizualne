@@ -98,10 +98,6 @@
     <Compile Include="Commands\NewMakerCmd.cs" />
     <Compile Include="Models\DbStorage.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Page Include="Views\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -109,6 +105,9 @@
     <Compile Include="Commands\NewViolinCmd.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Models\Violin.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Maker.cs" />
@@ -143,6 +142,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Michalski\Commands\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

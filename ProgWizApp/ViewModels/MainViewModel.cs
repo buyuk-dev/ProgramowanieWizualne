@@ -57,20 +57,6 @@ namespace Michalski
             }
         }
 
-        public ICommand newMakerCmd;
-        public ICommand NewMakerCmd
-        {
-            get
-            {
-                if (newMakerCmd == null) newMakerCmd = new Commands.NewMakerCmd();
-                return newMakerCmd;
-            }
-            set
-            {
-                newMakerCmd = value;
-            }
-        }
-
         private IViolinStorage violinStorage;
         public MainViewModel()
         {
