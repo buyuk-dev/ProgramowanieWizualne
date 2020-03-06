@@ -57,7 +57,7 @@ namespace Michalski
 			private set
 			{
 				_id = value;
-				//PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("id"));
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("id"));
 			}
 		}
 

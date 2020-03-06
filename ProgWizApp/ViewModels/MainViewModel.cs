@@ -11,10 +11,7 @@ namespace Michalski
         protected override void RemoveItem(int index)
         {
             T deletedItem = this.Items[index];
-            if (BeforeChange != null)
-            {
-                BeforeChange(deletedItem);
-            }
+            BeforeChange?.Invoke(deletedItem);
             base.RemoveItem(index);
         }
 
@@ -128,14 +125,12 @@ namespace Michalski
         {
             if (e.ListChangedType == ListChangedType.ItemChanged)
             {
-                Console.WriteLine("Item changed");
                 if (e.PropertyDescriptor.Name == "id") return; // ignoring, only possible on new item
                 violinStorage.Save(Violins[e.NewIndex]);
             }
 
             if (e.ListChangedType == ListChangedType.ItemAdded)
             {
-                Console.WriteLine("Item added");
                 violinStorage.Save(Violins[e.NewIndex]);
             }
         }
