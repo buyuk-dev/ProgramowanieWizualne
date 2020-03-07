@@ -12,4 +12,10 @@
     <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.112" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CORE\CORE.csproj" />
+    <ProjectReference Include="..\DAO\DAO.csproj" />
+    <ProjectReference Include="..\INTERFACES\INTERFACES.csproj" />
+  </ItemGroup>
+
 </Project>

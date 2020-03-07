@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.SQLite;
+using Michalski.Models;
 
-namespace Michalski.Models
+namespace Michalski.BusinessLogic
 {
     public class DbMakerStorage : IMakerStorage
 	{

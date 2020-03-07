@@ -95,27 +95,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\DbMakerStorage.cs" />
-    <Compile Include="Models\DbViolinStorage.cs" />
-    <Compile Include="Models\Interfaces\IMakerModel.cs" />
-    <Compile Include="Models\Interfaces\IMakerStorage.cs" />
-    <Compile Include="Models\Interfaces\IViolinModel.cs" />
-    <Compile Include="Models\Interfaces\IViolinStorage.cs" />
-    <Compile Include="Models\ViolinState.cs" />
-    <Compile Include="Utils\ExtBindingList.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Models\ViolinDb.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\MakerDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -142,12 +132,29 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLC\BLC.csproj">
+      <Project>{ed4ba065-0f60-42b8-968e-1f8b987c9846}</Project>
+      <Name>BLC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CORE\CORE.csproj">
+      <Project>{69a1ecfa-45b7-4598-9f52-df42ba53e85b}</Project>
+      <Name>CORE</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAO\DAO.csproj">
+      <Project>{2442403c-9d4a-40e4-81dd-0b853a833ad6}</Project>
+      <Name>DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\INTERFACES\INTERFACES.csproj">
+      <Project>{65050050-70dd-4274-8ca6-35347c605670}</Project>
+      <Name>INTERFACES</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

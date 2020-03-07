@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Michalski.Utils;
 using Michalski.Models;
+using Michalski.BusinessLogic;
 
 namespace Michalski.WPFApp
 {

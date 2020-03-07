@@ -9,5 +9,4 @@ namespace Michalski.Models
         string number { get; set; }
         string address { get; set; }
     }
-
 }
