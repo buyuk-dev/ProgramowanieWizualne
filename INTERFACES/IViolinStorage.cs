@@ -7,5 +7,6 @@ namespace Michalski.Models
 		void Delete(IViolinModel item);
 		void Save(IViolinModel item);
 		List<IViolinModel> ReadAll();
+		IViolinModel CreateNewItem();
 	}
 }

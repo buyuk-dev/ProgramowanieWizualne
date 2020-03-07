@@ -7,5 +7,6 @@ namespace Michalski.Models
 		void Delete(IMakerModel item);
 		void Save(IMakerModel item);
 		List<IMakerModel> ReadAll();
-	}
+        IMakerModel CreateNewItem();
+    }
 }

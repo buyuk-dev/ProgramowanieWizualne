@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CORE\CORE.csproj" />
-    <ProjectReference Include="..\DAO\DAO.csproj" />
+    <ProjectReference Include="..\DAO\DAOSql.csproj" />
     <ProjectReference Include="..\INTERFACES\INTERFACES.csproj" />
   </ItemGroup>
 

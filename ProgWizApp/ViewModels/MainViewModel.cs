@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using Michalski.Utils;
 using Michalski.Models;
-using Michalski.BusinessLogic;
+using System.Reflection;
 
 namespace Michalski.WPFApp
 {
-    public class MainViewModel
+    public class MainViewModel 
     {
         public event PropertyChangedEventHandler PropertyChanged;
         readonly static string dburi = $"URI={Properties.Settings.Default.DataSourceUri}";
@@ -44,14 +44,16 @@ namespace Michalski.WPFApp
 
         private void InitViolinData()
         {
-            violinStorage = new DbViolinStorage(dburi);
+            violinStorage = (IViolinStorage)daoDll.CreateInstance(
+                 "Michalski.Models.DbViolinStorage", false, BindingFlags.ExactBinding, null, new object[] { dburi }, null, null
+            );
             _violins = new ExtBindingList<IViolinModel>();
             foreach (var v in violinStorage.ReadAll())
             {
                 _violins.Add(v);
             }
             Violins.ListChanged += new ListChangedEventHandler(ViolinsChangedHandler);
-            Violins.AddingNew += (sender, e) => e.NewObject = new ViolinDb();
+            Violins.AddingNew += (sender, e) => e.NewObject = violinStorage.CreateNewItem();
             Violins.BeforeChange += BeforeViolinsChangedHandler;
         }
         #endregion // VIOLINS_TAB
@@ -90,20 +92,25 @@ namespace Michalski.WPFApp
 
         private void InitMakersData()
         {
-            makerStorage = new DbMakerStorage(dburi);
+            makerStorage = (IMakerStorage)daoDll.CreateInstance(
+                "Michalski.Models.DbMakerStorage", false, BindingFlags.ExactBinding, null, new object[] {dburi}, null, null
+            );
+
             _makers = new ExtBindingList<IMakerModel>();
             foreach (var m in makerStorage.ReadAll())
             {
                 _makers.Add(m);
             }
             Makers.ListChanged += new ListChangedEventHandler(MakersChangedHandler);
-            Makers.AddingNew += (sender, e) => e.NewObject = new MakerDb();
+            Makers.AddingNew += (sender, e) => e.NewObject = makerStorage.CreateNewItem();
             Makers.BeforeChange += BeforeMakersChangeHandler;
         }
         #endregion // MAKERS_TAB
 
+        private Assembly daoDll;
         public MainViewModel()
         {
+            daoDll = Assembly.LoadFile(@"C:\Users\buyuk\source\repos\ProgramowanieWizualne\DAO\obj\Debug\netstandard2.0\DAOSql.dll");
             InitViolinData();
             InitMakersData();
         }

@@ -147,10 +147,6 @@
       <Project>{69a1ecfa-45b7-4598-9f52-df42ba53e85b}</Project>
       <Name>CORE</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DAO\DAO.csproj">
-      <Project>{2442403c-9d4a-40e4-81dd-0b853a833ad6}</Project>
-      <Name>DAO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\INTERFACES\INTERFACES.csproj">
       <Project>{65050050-70dd-4274-8ca6-35347c605670}</Project>
       <Name>INTERFACES</Name>
