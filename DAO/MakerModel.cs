@@ -2,14 +2,14 @@
 
 namespace Michalski.Models
 {
-    public class MakerDb : IMakerModel
+    public class MakerModel : IMakerModel
     {
-        public MakerDb()
+        public MakerModel()
         {
             id = -1;
         }
 
-        public MakerDb(int id, string name, string number, string address)
+        public MakerModel(int id, string name, string number, string address)
         {
             this.id = id;
             this.name = name;

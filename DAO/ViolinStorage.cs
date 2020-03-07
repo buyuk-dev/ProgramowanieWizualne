@@ -8,7 +8,7 @@ namespace Michalski.Models
 		#region PRIVATE_MEMBERS
 		private string dburi;
 
-		private ViolinDb Read(SQLiteDataReader reader)
+		private ViolinModel Read(SQLiteDataReader reader)
 		{
 			var name = reader.GetString(0);
 			var maker = reader.GetString(1);
@@ -16,7 +16,7 @@ namespace Michalski.Models
 			var price = reader.GetInt32(3);
 			var state = reader.GetString(4);
 			var id = reader.GetInt32(5);
-			return new ViolinDb(id, maker, name, (uint)year, (uint)price, state);
+			return new ViolinModel(id, maker, name, (uint)year, (uint)price, state);
 		}
         #endregion // PRIVATE_MEMBERS
 
@@ -61,7 +61,7 @@ namespace Michalski.Models
 			int maxid = GetLastInsertId();
 			if (item.id < 0)
 			{
-				(item as ViolinDb).SetId(maxid + 1);
+				(item as ViolinModel).SetId(maxid + 1);
 				cmd = $"insert into violins values(" +
 					  $"'{item.name}', '{item.maker}', {item.year}, {item.price}, '{item.state}', {item.id}" +
 					  $")";
@@ -103,7 +103,7 @@ namespace Michalski.Models
 
 		public IViolinModel CreateNewItem()
 		{
-			return new ViolinDb();
+			return new ViolinModel();
 		}
 	}
 }

@@ -8,13 +8,13 @@ namespace Michalski.Models
 	{
 		private string dburi;
 
-		private MakerDb Read(SQLiteDataReader reader)
+		private MakerModel Read(SQLiteDataReader reader)
 		{
 			var name = reader.GetString(0);
 			var number = reader.GetString(1);
 			var address = reader.GetString(2);
 			var id = reader.GetInt32(3);
-			return new MakerDb(id, name, number, address);
+			return new MakerModel(id, name, number, address);
 		}
 
 		public MakerStorage(string dburi)
@@ -58,7 +58,7 @@ namespace Michalski.Models
 			int maxid = GetLastInsertId();
 			if (item.id < 0)
 			{
-				(item as MakerDb).SetId(maxid + 1);
+				(item as MakerModel).SetId(maxid + 1);
 				cmd = $"insert into makers values(" +
 					  $"'{item.name}', '{item.number}', '{item.address}', {item.id}" +
 					  $")";
@@ -98,7 +98,7 @@ namespace Michalski.Models
 
 		public IMakerModel CreateNewItem()
 		{
-			return new MakerDb();
+			return new MakerModel();
 		}
 	}
 }

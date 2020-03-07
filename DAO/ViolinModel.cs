@@ -4,14 +4,14 @@ using System.ComponentModel;
 namespace Michalski.Models
 {
 
-	public class ViolinDb : IViolinModel
+	public class ViolinModel : IViolinModel
 	{
-		public ViolinDb()
+		public ViolinModel()
 		{
 			id = -1;
 		}
 
-		public ViolinDb(int id, string maker, string name, uint year, uint price, string state)
+		public ViolinModel(int id, string maker, string name, uint year, uint price, string state)
 		{
 			this.id = id;
 			this.name = name;
