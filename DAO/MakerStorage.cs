@@ -4,7 +4,7 @@ using Michalski.Models;
 
 namespace Michalski.Models
 {
-    public class DbMakerStorage : IMakerStorage
+    public class MakerStorage : IObjectStorage<IMakerModel>
 	{
 		private string dburi;
 
@@ -17,7 +17,7 @@ namespace Michalski.Models
 			return new MakerDb(id, name, number, address);
 		}
 
-		public DbMakerStorage(string dburi)
+		public MakerStorage(string dburi)
 		{
 			this.dburi = dburi;
 		}

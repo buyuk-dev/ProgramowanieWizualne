@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.SQLite;
-using Michalski.Models;
 
 namespace Michalski.Models
 {
-	public class DbViolinStorage : IViolinStorage
+	public class ViolinStorage : IObjectStorage<IViolinModel>
 	{
 		private string dburi;
 
@@ -19,7 +18,7 @@ namespace Michalski.Models
 			return new ViolinDb(id, maker, name, (uint)year, (uint)price, state);
 		}
 
-		public DbViolinStorage(string dburi)
+		public ViolinStorage(string dburi)
 		{
 			this.dburi = dburi;
 		}

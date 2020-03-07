@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace Michalski.WPFApp
 {
+    using IViolinStorage = IObjectStorage<IViolinModel>;
+    using IMakerStorage = IObjectStorage<IMakerModel>;
+
     public class MainViewModel 
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -45,7 +48,7 @@ namespace Michalski.WPFApp
         private void InitViolinData()
         {
             violinStorage = (IViolinStorage)daoDll.CreateInstance(
-                 "Michalski.Models.DbViolinStorage", false, BindingFlags.ExactBinding, null, new object[] { dburi }, null, null
+                 "Michalski.Models.ViolinStorage", false, BindingFlags.ExactBinding, null, new object[] { dburi }, null, null
             );
             _violins = new ExtBindingList<IViolinModel>();
             foreach (var v in violinStorage.ReadAll())
@@ -93,7 +96,7 @@ namespace Michalski.WPFApp
         private void InitMakersData()
         {
             makerStorage = (IMakerStorage)daoDll.CreateInstance(
-                "Michalski.Models.DbMakerStorage", false, BindingFlags.ExactBinding, null, new object[] {dburi}, null, null
+                "Michalski.Models.MakerStorage", false, BindingFlags.ExactBinding, null, new object[] {dburi}, null, null
             );
 
             _makers = new ExtBindingList<IMakerModel>();
