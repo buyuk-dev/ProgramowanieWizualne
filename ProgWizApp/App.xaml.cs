@@ -1,7 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
-namespace Michalski
+namespace Michalski.WPFApp
 {
     public partial class App : Application
     {

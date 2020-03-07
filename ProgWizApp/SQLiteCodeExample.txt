@@ -1,8 +1,0 @@
-﻿# SQLite usage
-
-# WPF Usage:
-
-1. Message Box:
-
-    MessageBox.Show("Select item to remove.", "Violins", MessageBoxButton.OK, MessageBoxImage.Error);
-

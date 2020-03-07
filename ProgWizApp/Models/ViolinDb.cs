@@ -1,24 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Michalski
+namespace Michalski.Models
 {
-	public enum ViolinState
-	{
-		Good,
-		Average,
-		Bad
-	}
-
-	public interface IViolinModel : INotifyPropertyChanged
-	{
-		int id { get; }
-		string name { get; set; }
-		string maker { get; set; }
-		uint year { get; set; }
-		uint price { get; set; }
-		ViolinState state { get; set; }
-	}
 
 	public class ViolinDb : IViolinModel
 	{

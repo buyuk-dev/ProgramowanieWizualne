@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Michalski.Models;
+using Michalski.Utils;
 
-namespace Michalski
+namespace Michalski.WPFApp
 {
     public partial class MainWindow : Window
     {

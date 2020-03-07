@@ -95,22 +95,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\NewMakerCmd.cs" />
-    <Compile Include="Models\DbStorage.cs" />
+    <Compile Include="Models\DbMakerStorage.cs" />
+    <Compile Include="Models\DbViolinStorage.cs" />
+    <Compile Include="Models\Interfaces\IMakerModel.cs" />
+    <Compile Include="Models\Interfaces\IMakerStorage.cs" />
+    <Compile Include="Models\Interfaces\IViolinModel.cs" />
+    <Compile Include="Models\Interfaces\IViolinStorage.cs" />
+    <Compile Include="Models\ViolinState.cs" />
+    <Compile Include="Utils\ExtBindingList.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\NewViolinCmd.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Models\Violin.cs" />
+    <Compile Include="Models\ViolinDb.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Maker.cs" />
+    <Compile Include="Models\MakerDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -137,12 +142,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="SQLiteCodeExample.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Michalski\Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Views\MainWindow.xaml">
       <SubType>Designer</SubType>

@@ -1,10 +1,10 @@
-﻿<Window x:Class="Michalski.MainWindow"
+﻿<Window x:Class="Michalski.WPFApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:properties="clr-namespace:Michalski.Properties"
-        xmlns:local="clr-namespace:Michalski"
+        xmlns:local="clr-namespace:Michalski.WPFApp"
         mc:Ignorable="d"
         Title="{Binding Source={x:Static properties:Settings.Default}, Path=AppTitle}" Height="450" Width="521">
     <Window.DataContext>
