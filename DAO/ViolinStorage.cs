@@ -5,6 +5,7 @@ namespace Michalski.Models
 {
 	public class ViolinStorage : IObjectStorage<IViolinModel>
 	{
+		#region PRIVATE_MEMBERS
 		private string dburi;
 
 		private ViolinDb Read(SQLiteDataReader reader)
@@ -17,8 +18,9 @@ namespace Michalski.Models
 			var id = reader.GetInt32(5);
 			return new ViolinDb(id, maker, name, (uint)year, (uint)price, state);
 		}
+        #endregion // PRIVATE_MEMBERS
 
-		public ViolinStorage(string dburi)
+        public ViolinStorage(string dburi)
 		{
 			this.dburi = dburi;
 		}

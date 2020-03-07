@@ -25,15 +25,6 @@ namespace Michalski.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("MOCK")]
-        public string DataSourceType {
-            get {
-                return ((string)(this["DataSourceType"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Michal Michalski 109679")]
         public string AppTitle {
             get {
@@ -44,9 +35,19 @@ namespace Michalski.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("file:C:\\Users\\buyuk\\source\\repos\\ProgramowanieWizualne\\data.db")]
-        public string DataSourceUri {
+        public string SqliteUri {
             get {
-                return ((string)(this["DataSourceUri"]));
+                return ((string)(this["SqliteUri"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\buyuk\\source\\repos\\ProgramowanieWizualne\\DAO\\obj\\Debug\\netstandard2.0\\DA" +
+            "OSql.dll")]
+        public string DaoDllUri {
+            get {
+                return ((string)(this["DaoDllUri"]));
             }
         }
     }

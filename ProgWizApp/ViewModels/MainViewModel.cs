@@ -11,7 +11,8 @@ namespace Michalski.WPFApp
     public class MainViewModel 
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        readonly static string dburi = $"URI={Properties.Settings.Default.DataSourceUri}";
+        private Assembly daoDll;
+        readonly static string dburi = $"URI={Properties.Settings.Default.SqliteUri}";
 
         #region VIOLINS_TAB
         private IViolinStorage violinStorage;
@@ -110,10 +111,10 @@ namespace Michalski.WPFApp
         }
         #endregion // MAKERS_TAB
 
-        private Assembly daoDll;
         public MainViewModel()
         {
-            daoDll = Assembly.LoadFile(@"C:\Users\buyuk\source\repos\ProgramowanieWizualne\DAO\obj\Debug\netstandard2.0\DAOSql.dll");
+            string dlluri = Properties.Settings.Default.DaoDllUri;
+            daoDll = Assembly.LoadFile(dlluri);
             InitViolinData();
             InitMakersData();
         }
