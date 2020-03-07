@@ -5,7 +5,6 @@ using System.Windows.Input;
 
 namespace Michalski
 {
-
     class ExtBindingList<T> : BindingList<T>
     {
         protected override void RemoveItem(int index)
@@ -33,31 +32,20 @@ namespace Michalski
             }
         }
 
-        #region MAKERS_REGION
-        private ObservableCollection<Maker> _makers;
-        public ObservableCollection<Maker> Makers
+        private ExtBindingList<IMakerModel> _makers;
+        public ExtBindingList<IMakerModel> Makers
         {
             get { return _makers; }
-            set {
-                _makers = value;  Console.WriteLine("Setting Makers in MainViewModel.");
+            set
+            {
+                _makers = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Makers"));
-            }
-        }
-        #endregion
-
-        private ICommand newViolinCmd;
-        public ICommand NewViolinCmd
-        {
-            get {
-                if (newViolinCmd == null) newViolinCmd = new Commands.NewViolinCmd();
-                return newViolinCmd;
-            }
-            set {
-                newViolinCmd = value;
             }
         }
 
         private IViolinStorage violinStorage;
+        private IMakerStorage makerStorage;
+
         public MainViewModel()
         {
             string dburi = $"URI={Properties.Settings.Default.DataSourceUri}";
@@ -75,31 +63,38 @@ namespace Michalski
             Violins.AllowRemove = true;
             Violins.BeforeChange += BeforeViolinsChangedHandler;
 
-            #region MAKERS_REGION
-            /*
-            var connection = new SQLiteConnection(dburi);
-            connection.Open();
-
-            var cmd = new SQLiteCommand("select * from makers", connection);
-            var reader = cmd.ExecuteReader();
-            
-            _makers = new ObservableCollection<Maker>();
-
-            reader = cmd.ExecuteReader();
-            while (reader.Read())
+            makerStorage = new DbMakerStorage(dburi);
+            _makers = new ExtBindingList<IMakerModel>();
+            foreach (var m in makerStorage.ReadAll())
             {
-                var name = reader.GetString(0);
-                var number = reader.GetString(1);
-                var address = reader.GetString(2);
-                Makers.Add(new Maker(name, number, address));
+                _makers.Add(m);
+            }
+            Makers.ListChanged += new ListChangedEventHandler(MakersChangedHandler);
+            Makers.AllowNew = true;
+            Makers.AddingNew += (sender, e) => e.NewObject = new MakerDb();
+            Makers.AllowEdit = true;
+            Makers.AllowRemove = true;
+            Makers.BeforeChange += BeforeMakersChangeHandler;
+
+        }
+
+        private void BeforeMakersChangeHandler(IMakerModel item)
+        {
+            makerStorage.Delete(item);
+        }
+
+        private void MakersChangedHandler(object sender, ListChangedEventArgs e)
+        {
+            if (e.ListChangedType == ListChangedType.ItemChanged)
+            {
+                if (e.PropertyDescriptor.Name == "id") return; // ignoring, only possible on new item
+                makerStorage.Save(Makers[e.NewIndex]);
             }
 
-            cmd.Dispose();
-            reader.Dispose();
-            connection.Close();
-            connection.Dispose();
-            */
-            #endregion
+            if (e.ListChangedType == ListChangedType.ItemAdded)
+            {
+                makerStorage.Save(Makers[e.NewIndex]);
+            }
         }
 
         private void BeforeViolinsChangedHandler(IViolinModel item)

@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Michalski
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -31,6 +29,25 @@ namespace Michalski
             else
             {
                 ViolinsDataGrid.DataContext = mainVM.Violins;
+            }
+        }
+
+        private void MakerFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var filter = (sender as TextBox).Text;
+            if (filter.Length > 0)
+            {
+                IEnumerable<IMakerModel> filteredDataEnumerable = from maker in mainVM.Makers where maker.name.StartsWith(filter) select maker;
+                var filteredData = new ExtBindingList<IMakerModel>();
+                foreach (var item in filteredDataEnumerable)
+                {
+                    filteredData.Add(item);
+                }
+                MakersDataGrid.DataContext = filteredData;
+            }
+            else
+            {
+                MakersDataGrid.DataContext = mainVM.Makers;
             }
         }
     }
