@@ -43,8 +43,8 @@ namespace Michalski.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\buyuk\\source\\repos\\ProgramowanieWizualne\\DAO\\obj\\Debug\\netstandard2.0\\DA" +
-            "OSql.dll")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\buyuk\\source\\repos\\ProgramowanieWizualne\\DAOMock\\bin\\Debug\\netstandard2." +
+            "0\\DAOMock.dll")]
         public string DaoDllUri {
             get {
                 return ((string)(this["DaoDllUri"]));

@@ -2,6 +2,7 @@
 using Michalski.Utils;
 using Michalski.Models;
 using System.Reflection;
+using System;
 
 namespace Michalski.WPFApp
 {
@@ -114,6 +115,7 @@ namespace Michalski.WPFApp
         public MainViewModel()
         {
             string dlluri = Properties.Settings.Default.DaoDllUri;
+            Console.WriteLine($"Loading {dlluri}");
             daoDll = Assembly.LoadFile(dlluri);
             InitViolinData();
             InitMakersData();
