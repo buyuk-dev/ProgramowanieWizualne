@@ -22,7 +22,8 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBox Name="ViolinFilter" TextChanged="ViolinFilter_TextChanged" Grid.Column="2" Grid.Row="0"></TextBox>
+                <Label>Filter by the maker name:</Label>
+                <TextBox Name="ViolinFilter" TextChanged="ViolinFilter_TextChanged" Grid.Column="1" Grid.Row="0"></TextBox>
                 <DataGrid Name="ViolinsDataGrid" ItemsSource="{Binding}" DataContext="{Binding Violins}" Grid.ColumnSpan="3" Grid.Row="1" CanUserAddRows="True">
                 </DataGrid>
             </Grid>
@@ -38,7 +39,8 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBox Name="MakerFilter" TextChanged="MakerFilter_TextChanged"  Grid.Column="2" Grid.Row="0"></TextBox>
+                <Label>Filter by the maker name:</Label>
+                <TextBox Name="MakerFilter" TextChanged="MakerFilter_TextChanged"  Grid.Column="1" Grid.Row="0"></TextBox>
                 <DataGrid Name="MakersDataGrid" ItemsSource="{Binding}" DataContext="{Binding Makers}" Grid.ColumnSpan="3" Grid.Row="1" CanUserAddRows="True">
                 </DataGrid>
             </Grid>
