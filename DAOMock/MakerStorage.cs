@@ -33,6 +33,7 @@ namespace Michalski.Models
 			var id = _data.FindIndex((x) => { return item.id == x.id; });
 			if (id < 0)
 			{
+				(item as MakerModel).SetId(GetLastInsertId() + 1);
 				_data.Add(item);
 			}
 			else

@@ -34,7 +34,7 @@ namespace Michalski.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("file:C:\\Users\\buyuk\\source\\repos\\ProgramowanieWizualne\\data.db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\buyuk\\source\\repos\\ProgramowanieWizualne\\")]
         public string SqliteUri {
             get {
                 return ((string)(this["SqliteUri"]));
@@ -43,8 +43,7 @@ namespace Michalski.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\buyuk\\source\\repos\\ProgramowanieWizualne\\DAOMock\\bin\\Debug\\netstandard2." +
-            "0\\DAOMock.dll")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\buyuk\\source\\repos\\ProgramowanieWizualne\\DAOFile\\bin\\Debug\\DAOFile.dll")]
         public string DaoDllUri {
             get {
                 return ((string)(this["DaoDllUri"]));

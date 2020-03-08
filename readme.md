@@ -2,7 +2,6 @@ Projekt zaliczeniowy - Programowanie Wizualne
 ---------------------------------------------
 Michał Michalski 109679
 
-
 ## Opis składowych aplikacji:
 
 1. ProgWizApp:
@@ -13,6 +12,9 @@ Biblioteka zawierająca klasy ładujące dane z bazy SQLite.
 
 3. DAOMock:
 Biblioteka zawierająca klasy łądujące przykładowe dane zapisane w kodzie.
+
+4. DAOFile:
+Biblioteka zawierająca klasy ładujące dane z pliku w formacie CSV.
 
 4. CORE:
 Biblioteka zawierająca typ wyliczeniowy ViolinState oraz rozszerzoną implementację klasy BindingList która przechwytuje zdarzenie usuwania elementu przed jego faktycznym usunięciem co pozwala wykonać na nim dodatkowe operacje.

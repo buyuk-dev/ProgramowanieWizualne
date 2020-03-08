@@ -13,7 +13,8 @@ namespace Michalski.WPFApp
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private Assembly daoDll;
-        readonly static string dburi = $"URI={Properties.Settings.Default.SqliteUri}";
+        readonly static string dburi = $"{Properties.Settings.Default.SqliteUri}";
+        readonly static string dlluri = $"{Properties.Settings.Default.DaoDllUri}";
 
         #region VIOLINS_TAB
         private IViolinStorage violinStorage;
@@ -114,8 +115,8 @@ namespace Michalski.WPFApp
 
         public MainViewModel()
         {
-            string dlluri = Properties.Settings.Default.DaoDllUri;
             Console.WriteLine($"Loading {dlluri}");
+            Console.WriteLine($"Data from: {dburi}");
             daoDll = Assembly.LoadFile(dlluri);
             InitViolinData();
             InitMakersData();

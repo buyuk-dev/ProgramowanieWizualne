@@ -6,10 +6,10 @@
       <Value Profile="(Default)">Michal Michalski 109679</Value>
     </Setting>
     <Setting Name="SqliteUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">file:C:\Users\buyuk\source\repos\ProgramowanieWizualne\data.db</Value>
+      <Value Profile="(Default)">C:\Users\buyuk\source\repos\ProgramowanieWizualne\</Value>
     </Setting>
     <Setting Name="DaoDllUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\buyuk\source\repos\ProgramowanieWizualne\DAOMock\bin\Debug\netstandard2.0\DAOMock.dll</Value>
+      <Value Profile="(Default)">C:\Users\buyuk\source\repos\ProgramowanieWizualne\DAOFile\bin\Debug\DAOFile.dll</Value>
     </Setting>
   </Settings>
 </SettingsFile>
