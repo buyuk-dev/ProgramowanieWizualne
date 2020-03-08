@@ -16,9 +16,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLC", "BLC\BLC.csproj", "{E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INTERFACES", "INTERFACES\INTERFACES.csproj", "{65050050-70DD-4274-8CA6-35347C605670}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CORE", "CORE\CORE.csproj", "{69A1ECFA-45B7-4598-9F52-DF42BA53E85B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CORE", "CORE\CORE.csproj", "{69A1ECFA-45B7-4598-9F52-DF42BA53E85B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAOMock", "DAOMock\DAOMock.csproj", "{F74849C8-1C1E-4C7E-82DC-E4CBC4CC0961}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAOMock", "DAOMock\DAOMock.csproj", "{F74849C8-1C1E-4C7E-82DC-E4CBC4CC0961}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{828392C5-3AAB-4AC9-A96B-9578B70C1199}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
