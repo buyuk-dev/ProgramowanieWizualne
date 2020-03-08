@@ -32,7 +32,10 @@ tabeli, co uznałem za zadanie bardziej pasujące do zadań ViewModel niż BLC.
 7. Settings:
 Ustawienia aplikacji są przechowywane w pliku konfiguracyjnym ProgWizApp.exe.config, który można edytować bez rekompilacji projektu.
   
-  - SqliteUri: ścieżka bezwzględna do pliku bazy danych SQLite (przykładową bazę można utworzyć skryptem create_tables.sql)
+  - SqliteUri:
+        ścieżka bezwzględna do pliku bazy danych SQLite (przykładową bazę można utworzyć skryptem create_tables.sql)
+        W przypadku wykorzystania DAOMock to ustawienie nie ma żadnego znaczenia.
+        Dla DAOFile jest to ścieżka do katalogu w którym istnieją lub mają zostać stworzone pliki violin.csv oraz makers.csv.
   - DaoUri: ścieżka bezwzględna do pliku dll wybranej biblioteki DAO (DAOMock.dll lub DAOSql.dll)
   - AppTitle: nazwa aplikacji wyświetlana na pasku tytułowym
 
